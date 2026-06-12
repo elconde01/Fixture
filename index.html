@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixture Automatizado - Mundial 2026</title>
+    <title>Fixture Completo con Horarios - Mundial 2026</title>
     <style>
         :root {
             --dark-color: #1e2022;
@@ -60,17 +60,30 @@
         .match-card {
             background: var(--light-bg);
             border-radius: 8px;
-            padding: 12px 20px;
+            padding: 14px 20px;
             margin-bottom: 10px;
             display: grid;
-            grid-template-columns: 1fr 1.8fr 1fr;
+            grid-template-columns: 1.3fr 1.7fr 1fr;
             align-items: center;
             border: 1px solid var(--border-color);
         }
 
+        .match-card:hover {
+            border-color: #cbd5e1;
+            background-color: #f1f5f9;
+        }
+
         .match-info {
-            font-size: 0.8rem;
-            color: #718096;
+            font-size: 0.85rem;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        .datetime-tag {
+            color: #2d3748;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 2px;
         }
 
         .teams-container {
@@ -129,7 +142,7 @@
         }
 
         @media (max-width: 650px) {
-            .match-card { grid-template-columns: 1fr; gap: 10px; text-align: center; }
+            .match-card { grid-template-columns: 1fr; gap: 12px; text-align: center; }
             .team.home, .team.away { justify-content: center; }
             .teams-container { flex-direction: column; gap: 5px; }
             .status-badge { justify-self: center; }
@@ -141,11 +154,11 @@
 <div class="container">
     <header>
         <h1>Fixture Completo - Mundial 2026</h1>
-        <div class="subtitle">Resultados en vivo sincronizados automáticamente</div>
+        <div class="subtitle">Calendario, Horarios y Resultados en Vivo</div>
     </header>
 
     <main id="fixture-grupos">
-        <p style="text-align:center; color:#666;">Conectando con el servidor de resultados...</p>
+        <p style="text-align:center; color:#666;">Cargando programación oficial del torneo...</p>
     </main>
 </div>
 
@@ -189,14 +202,12 @@
         let liveScores = {};
         
         try {
-            // Llama dinámicamente al archivo resultados.json alojado en tu propia carpeta pública de GitHub
-            // Agregamos un timestamp (?t=...) para obligar al navegador a no usar caché y traer datos reales en vivo
             const response = await fetch(`./resultados.json?t=${new Date().getTime()}`);
             if (response.ok) {
                 liveScores = await response.json();
             }
         } catch (error) {
-            console.log("Esperando inicialización de datos...");
+            console.log("Cargando estructura base del fixture...");
         }
 
         const container = document.getElementById('fixture-grupos');
@@ -218,7 +229,11 @@
 
             groupMatches.forEach(([home, away, round]) => {
                 const matchKey = `${home}-${away}`;
-                const result = liveScores[matchKey] || { home: null, away: null, status: "future" };
+                // Si el JSON no tiene los datos del partido, usa estos valores por defecto
+                const result = liveScores[matchKey] || { 
+                    home: null, away: null, status: "future", 
+                    date: "Por definir", time: "--:--", venue: "Estadio por confirmar" 
+                };
                 
                 let scoreDisplay = "  -  ";
                 let badgeText = "Por jugar";
@@ -238,8 +253,8 @@
                 matchCard.className = 'match-card';
                 matchCard.innerHTML = `
                     <div class="match-info">
-                        <span style="font-weight:bold; color:var(--accent-color);">${round}</span>
-                        <div>🏟️ Fase de Grupos</div>
+                        <span class="datetime-tag">📅 ${result.date} - 🕒 ${result.time} hs</span>
+                        <div style="font-size:0.75rem; color:#718096;">📍 ${result.venue}</div>
                     </div>
                     <div class="teams-container">
                         <span class="team home">${home} ${getFlag(home)}</span>
@@ -255,10 +270,7 @@
         }
     }
 
-    // Carga inicial al abrir la página
     fetchScoresAndRender();
-
-    // Auto-refresco en segundo plano cada 60 segundos (ideal para cuando hay partidos en vivo)
     setInterval(fetchScoresAndRender, 60000);
 </script>
 </body>
