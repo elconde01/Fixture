@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixture Completo 48 Equipos - Mundial 2026</title>
+    <title>Fixture Completo Mundial 2026</title>
     <style>
         :root {
             --dark-color: #1e2022;
@@ -140,7 +140,7 @@
 </div>
 
 <script>
-    // Códigos ISO corregidos para las banderas
+    // Configuración limpia de banderas
     const flagCodes = {
         "México": "mx", "Sudáfrica": "za", "Corea del Sur": "kr", "Chequia": "cz",
         "Canadá": "ca", "Bosnia": "ba", "Omán": "om", "Túnez": "tn",
@@ -156,7 +156,7 @@
         "Inglaterra": "gb-eng", "Dinamarca": "dk", "Senegal": "sn", "Honduras": "hn"
     };
 
-    // Estructura de los 12 grupos
+    // Los 12 grupos oficiales del nuevo formato
     const worldCupGroups = {
         "Grupo A": ["México", "Sudáfrica", "Corea del Sur", "Chequia"],
         "Grupo B": ["Canadá", "Bosnia", "Omán", "Túnez"],
@@ -172,7 +172,7 @@
         "Grupo L": ["Inglaterra", "Dinamarca", "Senegal", "Honduras"]
     };
 
-    // Resultados reales actuales
+    // Aquí registras los goles de los partidos completados
     const liveScores = {
         "México-Sudáfrica": { home: 2, away: 0, status: "done" },
         "Corea del Sur-Chequia": { home: 2, away: 1, status: "done" }
@@ -192,7 +192,7 @@
             groupSection.className = 'group-section';
             groupSection.innerHTML = `<h2 class="group-title">${groupName}</h2>`;
 
-            // Combinatoria matemática exacta para los 6 partidos de cada grupo (Total 72)
+            // Cruces automáticos de todos contra todos para las 3 fechas del grupo
             const groupMatches = [
                 [teams[0], teams[1], "Fecha 1"],
                 [teams[2], teams[3], "Fecha 1"],
@@ -216,7 +216,7 @@
                 matchCard.innerHTML = `
                     <div class="match-info">
                         <span style="font-weight:bold; color:var(--accent-color);">${round}</span>
-                        <div>🏟️ Sede del Grupo</div>
+                        <div>🏟️ Fase de Grupos</div>
                     </div>
                     <div class="teams-container">
                         <span class="team home">${home} ${getFlag(home)}</span>
@@ -232,6 +232,7 @@
         }
     }
 
+    // Encender el script
     generateAndRenderFixture();
 </script>
 </body>
