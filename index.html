@@ -6,7 +6,6 @@
     <title>Fixture Completo - Mundial 2026</title>
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #11998e, #38ef7d);
             --dark-color: #1e2022;
             --light-bg: #f4f7f6;
             --card-bg: #ffffff;
@@ -30,21 +29,20 @@
             text-align: center;
             margin-bottom: 30px;
             padding: 40px 20px;
-            background: linear-gradient(135deg, #1f4037, #99f2c8);
+            background: linear-gradient(135deg, #1f4037, #2c5364);
             color: white;
             border-radius: 16px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
 
-        h1 { margin: 0 0 10px 0; font-size: 2.6rem; }
+        h1 { margin: 0 0 10px 0; font-size: 2.3rem; }
         .subtitle { opacity: 0.9; font-size: 1.1rem; font-weight: 300; }
 
         .section-title {
             font-size: 1.4rem;
-            margin: 30px 0 15px 0;
+            margin: 35px 0 15px 0;
             padding-bottom: 5px;
-            border-bottom: 2px solid var(--border-color);
+            border-bottom: 2px solid #38ef7d;
             color: #2c3e50;
         }
 
@@ -55,7 +53,7 @@
             margin-bottom: 12px;
             border: 1px solid var(--border-color);
             display: grid;
-            grid-template-columns: 1.21fr 2fr 1fr;
+            grid-template-columns: 1.2fr 2fr 1fr;
             align-items: center;
             transition: all 0.2s ease;
         }
@@ -111,7 +109,6 @@
             border-radius: 30px;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .status-done { background-color: #c6f6d5; color: #22543d; }
@@ -123,8 +120,7 @@
                 gap: 15px;
                 text-align: center;
             }
-            .team.home { text-align: center; }
-            .team.away { text-align: center; }
+            .team.home, .team.away { text-align: center; }
             .teams-container { flex-direction: column; gap: 8px; }
             .status-badge { justify-self: center; }
         }
@@ -134,44 +130,55 @@
 
 <div class="container">
     <header>
-        <h1>Mundial FIFA 2026</h1>
-        <div class="subtitle">Fixture General y Próximos Partidos</div>
+        <h1>Mundial FIFA 2026 - Calendario de Partidos</h1>
+        <div class="subtitle">Fixture Completo del Torneo</div>
     </header>
 
-    <main id="fixture-completo">
-        </main>
+    <main id="fixture-completo"></main>
 </div>
 
 <script>
-    // Base de datos del Fixture Completo del Mundial 2026 (Fase de Grupos inicial)
-    // Se actualiza de forma automática cambiando los valores de "homeScore" y "awayScore"
+    // Lista expandida con los partidos de apertura y la cartelera de las jornadas siguientes
     const fixtureData = [
-        // PARTIDOS YA JUGADOS
-        { home: "México", away: "Sudáfrica", homeScore: 2, awayScore: 0, date: "Jueves 11 de Junio", time: "16:00", group: "Grupo A", venue: "Estadio Azteca, CDMX", status: "done" },
-        { home: "Corea del Sur", away: "Chequia", homeScore: 2, awayScore: 1, date: "Jueves 11 de Junio", time: "23:00", group: "Grupo A", venue: "Estadio Akron, Guadalajara", status: "done" },
+        // JUEVES 11 DE JUNIO (Ayer)
+        { home: "México", away: "Sudáfrica", homeScore: 2, awayScore: 0, date: "Jueves 11 de Junio", time: "16:00", group: "Grupo A", venue: "Estadio Azteca", status: "done" },
+        { home: "Corea del Sur", away: "Chequia", homeScore: 2, awayScore: 1, date: "Jueves 11 de Junio", time: "23:00", group: "Grupo A", venue: "Estadio Akron", status: "done" },
         
-        // PARTIDOS QUE FALTAN JUGAR (Próximos días de Junio 2026)
-        { home: "Canadá", away: "Bosnia y Her.", homeScore: null, awayScore: null, date: "Viernes 12 de Junio", time: "16:00", group: "Grupo B", venue: "BMO Field, Toronto", status: "future" },
-        { home: "Estados Unidos", away: "Paraguay", homeScore: null, awayScore: null, date: "Viernes 12 de Junio", time: "22:00", group: "Grupo D", venue: "SoFi Stadium, Los Ángeles", status: "future" },
-        { home: "España", away: "Camerún", homeScore: null, awayScore: null, date: "Sábado 13 de Junio", time: "13:00", group: "Grupo C", venue: "MetLife Stadium, Nueva York", status: "future" },
-        { home: "Argentina", away: "Australia", homeScore: null, awayScore: null, date: "Sábado 13 de Junio", time: "18:00", group: "Grupo E", venue: "Hard Rock Stadium, Miami", status: "future" },
-        { home: "Francia", away: "Arabia Saudita", homeScore: null, awayScore: null, date: "Domingo 14 de Junio", time: "15:00", group: "Grupo H", venue: "AT&T Stadium, Dallas", status: "future" },
-        { home: "Brasil", away: "Suecia", homeScore: null, awayScore: null, date: "Domingo 14 de Junio", time: "21:00", group: "Grupo F", venue: "Levi's Stadium, San Francisco", status: "future" },
-        { home: "Alemania", away: "Marruecos", homeScore: null, awayScore: null, date: "Lunes 15 de Junio", time: "14:00", group: "Grupo G", venue: "Mercedes-Benz Stadium, Atlanta", status: "future" },
-        { home: "Uruguay", away: "Japón", homeScore: null, awayScore: null, date: "Lunes 15 de Junio", time: "19:00", group: "Grupo I", venue: "Lumen Field, Seattle", status: "future" },
-        { home: "Inglaterra", away: "Ecuador", homeScore: null, awayScore: null, date: "Martes 16 de Junio", time: "17:00", group: "Grupo J", venue: "Gillette Stadium, Boston", status: "future" },
-        { home: "Bélgica", away: "Ghana", homeScore: null, awayScore: null, date: "Miércoles 17 de Junio", time: "16:00", group: "Grupo K", venue: "NRG Stadium, Houston", status: "future" },
-        { home: "Portugal", away: "Chile", homeScore: null, awayScore: null, date: "Jueves 18 de Junio", time: "20:00", group: "Grupo L", venue: "Lincoln Financial Field, Filadelfia", status: "future" }
+        // VIERNES 12 DE JUNIO (Hoy)
+        { home: "Canadá", away: "Bosnia y Her.", homeScore: null, awayScore: null, date: "Viernes 12 de Junio", time: "16:00", group: "Grupo B", venue: "BMO Field", status: "future" },
+        { home: "Estados Unidos", away: "Paraguay", homeScore: null, awayScore: null, date: "Viernes 12 de Junio", time: "22:00", group: "Grupo D", venue: "SoFi Stadium", status: "future" },
+        
+        // SÁBADO 13 DE JUNIO
+        { home: "España", away: "Camerún", homeScore: null, awayScore: null, date: "Sábado 13 de Junio", time: "13:00", group: "Grupo C", venue: "MetLife Stadium", status: "future" },
+        { home: "Argentina", away: "Australia", homeScore: null, awayScore: null, date: "Sábado 13 de Junio", time: "18:00", group: "Grupo E", venue: "Hard Rock Stadium", status: "future" },
+        
+        // DOMINGO 14 DE JUNIO
+        { home: "Francia", away: "Arabia Saudita", homeScore: null, awayScore: null, date: "Domingo 14 de Junio", time: "15:00", group: "Grupo H", venue: "AT&T Stadium", status: "future" },
+        { home: "Brasil", away: "Suecia", homeScore: null, awayScore: null, date: "Domingo 14 de Junio", time: "21:00", group: "Grupo F", venue: "Levi's Stadium", status: "future" },
+        
+        // LUNES 15 DE JUNIO
+        { home: "Alemania", away: "Marruecos", homeScore: null, awayScore: null, date: "Lunes 15 de Junio", time: "14:00", group: "Grupo G", venue: "Mercedes-Benz Stadium", status: "future" },
+        { home: "Uruguay", away: "Japón", homeScore: null, awayScore: null, date: "Lunes 15 de Junio", time: "19:00", group: "Grupo I", venue: "Lumen Field", status: "future" },
+        
+        // MARTES 16 DE JUNIO
+        { home: "Inglaterra", away: "Ecuador", homeScore: null, awayScore: null, date: "Martes 16 de Junio", time: "17:00", group: "Grupo J", venue: "Gillette Stadium", status: "future" },
+        { home: "Italia", away: "Ghana", homeScore: null, awayScore: null, date: "Martes 16 de Junio", time: "21:00", group: "Grupo K", venue: "NRG Stadium", status: "future" },
+        
+        // MIÉRCOLES 17 DE JUNIO
+        { home: "Portugal", away: "Chile", homeScore: null, awayScore: null, date: "Miércoles 17 de Junio", time: "15:00", group: "Grupo L", venue: "Lincoln Financial Field", status: "future" },
+        { home: "Países Bajos", away: "Argelia", homeScore: null, awayScore: null, date: "Miércoles 17 de Junio", time: "20:00", group: "Grupo C", venue: "Arrowhead Stadium", status: "future" },
+        
+        // JUEVES 18 DE JUNIO
+        { home: "Bélgica", away: "Nueva Zelanda", homeScore: null, awayScore: null, date: "Jueves 18 de Junio", time: "16:00", group: "Grupo F", venue: "Hard Rock Stadium", status: "future" },
+        { home: "Colombia", away: "Irlanda", homeScore: null, awayScore: null, date: "Jueves 18 de Junio", time: "21:00", group: "Grupo E", venue: "Levi's Stadium", status: "future" }
     ];
 
     function renderFixture() {
         const container = document.getElementById('fixture-completo');
         container.innerHTML = '';
-
         let currentDate = "";
 
         fixtureData.forEach(match => {
-            // Si cambia el día, añadimos un separador visual/título de fecha
             if (currentDate !== match.date) {
                 currentDate = match.date;
                 const dateTitle = document.createElement('div');
@@ -180,7 +187,6 @@
                 container.appendChild(dateTitle);
             }
 
-            // Crear tarjeta del partido
             const card = document.createElement('div');
             card.className = 'match-card';
 
@@ -192,7 +198,7 @@
             card.innerHTML = `
                 <div class="match-info">
                     <span class="group-tag">${match.group}</span>
-                    <div>🕒 HORA: ${match.time}</div>
+                    <div>🕒 ${match.time} hs</div>
                     <div style="font-size:0.75rem; margin-top:2px;">📍 ${match.venue}</div>
                 </div>
                 <div class="teams-container">
@@ -206,9 +212,7 @@
         });
     }
 
-    // Dibujar el fixture completo al cargar la página
     renderFixture();
 </script>
-
 </body>
 </html>
