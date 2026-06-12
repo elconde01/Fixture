@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixture Completo Mundial 2026</title>
+    <title>Fixture Automatizado - Mundial 2026</title>
     <style>
         :root {
             --dark-color: #1e2022;
@@ -116,9 +116,17 @@
             padding: 4px 10px;
             border-radius: 20px;
             font-weight: bold;
+            text-transform: uppercase;
         }
         .status-done { background-color: #c6f6d5; color: #22543d; }
+        .status-live { background-color: #feebc8; color: #c05621; animation: pulse 1.5s infinite; }
         .status-future { background-color: #e2e8f0; color: #4a5568; }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
 
         @media (max-width: 650px) {
             .match-card { grid-template-columns: 1fr; gap: 10px; text-align: center; }
@@ -133,14 +141,15 @@
 <div class="container">
     <header>
         <h1>Fixture Completo - Mundial 2026</h1>
-        <div class="subtitle">Los 72 partidos de la Fase de Grupos (48 Selecciones)</div>
+        <div class="subtitle">Resultados en vivo sincronizados automáticamente</div>
     </header>
 
-    <main id="fixture-grupos"></main>
+    <main id="fixture-grupos">
+        <p style="text-align:center; color:#666;">Conectando con el servidor de resultados...</p>
+    </main>
 </div>
 
 <script>
-    // Configuración limpia de banderas
     const flagCodes = {
         "México": "mx", "Sudáfrica": "za", "Corea del Sur": "kr", "Chequia": "cz",
         "Canadá": "ca", "Bosnia": "ba", "Omán": "om", "Túnez": "tn",
@@ -156,7 +165,6 @@
         "Inglaterra": "gb-eng", "Dinamarca": "dk", "Senegal": "sn", "Honduras": "hn"
     };
 
-    // Los 12 grupos oficiales del nuevo formato
     const worldCupGroups = {
         "Grupo A": ["México", "Sudáfrica", "Corea del Sur", "Chequia"],
         "Grupo B": ["Canadá", "Bosnia", "Omán", "Túnez"],
@@ -172,18 +180,25 @@
         "Grupo L": ["Inglaterra", "Dinamarca", "Senegal", "Honduras"]
     };
 
-    // Aquí registras los goles de los partidos completados
-    const liveScores = {
-        "México-Sudáfrica": { home: 2, away: 0, status: "done" },
-        "Corea del Sur-Chequia": { home: 2, away: 1, status: "done" }
-    };
-
     function getFlag(country) {
         const code = flagCodes[country] || "un";
         return `<img src="https://flagcdn.com/w40/${code}.png" class="flag" alt="${country}">`;
     }
 
-    function generateAndRenderFixture() {
+    async function fetchScoresAndRender() {
+        let liveScores = {};
+        
+        try {
+            // Llama dinámicamente al archivo resultados.json alojado en tu propia carpeta pública de GitHub
+            // Agregamos un timestamp (?t=...) para obligar al navegador a no usar caché y traer datos reales en vivo
+            const response = await fetch(`./resultados.json?t=${new Date().getTime()}`);
+            if (response.ok) {
+                liveScores = await response.json();
+            }
+        } catch (error) {
+            console.log("Esperando inicialización de datos...");
+        }
+
         const container = document.getElementById('fixture-grupos');
         container.innerHTML = '';
 
@@ -192,7 +207,6 @@
             groupSection.className = 'group-section';
             groupSection.innerHTML = `<h2 class="group-title">${groupName}</h2>`;
 
-            // Cruces automáticos de todos contra todos para las 3 fechas del grupo
             const groupMatches = [
                 [teams[0], teams[1], "Fecha 1"],
                 [teams[2], teams[3], "Fecha 1"],
@@ -206,10 +220,19 @@
                 const matchKey = `${home}-${away}`;
                 const result = liveScores[matchKey] || { home: null, away: null, status: "future" };
                 
-                const isFinished = result.status === 'done';
-                const scoreDisplay = isFinished ? `${result.home} - ${result.away}` : "  -  ";
-                const badgeText = isFinished ? "Finalizado" : "Por jugar";
-                const badgeClass = isFinished ? "status-done" : "status-future";
+                let scoreDisplay = "  -  ";
+                let badgeText = "Por jugar";
+                let badgeClass = "status-future";
+
+                if (result.status === 'done') {
+                    scoreDisplay = `${result.home} - ${result.away}`;
+                    badgeText = "Finalizado";
+                    badgeClass = "status-done";
+                } else if (result.status === 'live') {
+                    scoreDisplay = `${result.home} - ${result.away}`;
+                    badgeText = "En Vivo ⏱️";
+                    badgeClass = "status-live";
+                }
 
                 const matchCard = document.createElement('div');
                 matchCard.className = 'match-card';
@@ -232,8 +255,11 @@
         }
     }
 
-    // Encender el script
-    generateAndRenderFixture();
+    // Carga inicial al abrir la página
+    fetchScoresAndRender();
+
+    // Auto-refresco en segundo plano cada 60 segundos (ideal para cuando hay partidos en vivo)
+    setInterval(fetchScoresAndRender, 60000);
 </script>
 </body>
 </html>
