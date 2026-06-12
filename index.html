@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixture Completo con Horarios - Mundial 2026</title>
+    <title>Fixture Mundial 2026 - Datos Reales API</title>
     <style>
         :root {
             --dark-color: #1e2022;
@@ -21,10 +21,7 @@
             padding: 20px;
         }
 
-        .container {
-            max-width: 950px;
-            margin: 0 auto;
-        }
+        .container { max-width: 950px; margin: 0 auto; }
 
         header {
             text-align: center;
@@ -33,7 +30,6 @@
             background: linear-gradient(135deg, #11998e, #2c5364);
             color: white;
             border-radius: 16px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
         h1 { margin: 0 0 10px 0; font-size: 2.3rem; }
@@ -68,23 +64,13 @@
             border: 1px solid var(--border-color);
         }
 
-        .match-card:hover {
-            border-color: #cbd5e1;
-            background-color: #f1f5f9;
+        .match-card.live-card {
+            border-color: #e53e3e;
+            background-color: #fff5f5;
         }
 
-        .match-info {
-            font-size: 0.85rem;
-            color: #4a5568;
-            line-height: 1.4;
-        }
-
-        .datetime-tag {
-            color: #2d3748;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 2px;
-        }
+        .match-info { font-size: 0.85rem; color: #4a5568; line-height: 1.4; }
+        .datetime-tag { color: #2d3748; font-weight: 600; display: block; }
 
         .teams-container {
             display: flex;
@@ -95,52 +81,29 @@
             font-weight: 600;
         }
 
-        .team { 
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex: 1; 
-        }
+        .team { display: flex; align-items: center; gap: 8px; flex: 1; }
         .team.home { justify-content: flex-end; text-align: right; }
         .team.away { justify-content: flex-start; text-align: left; }
 
-        .flag {
-            width: 24px;
-            height: 16px;
-            object-fit: cover;
-            border-radius: 2px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
+        .flag { width: 24px; height: 16px; object-fit: cover; border-radius: 2px; }
 
         .score {
-            background: #2d3748;
-            color: #fff;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 1.2rem;
-            min-width: 35px;
-            text-align: center;
+            background: #2d3748; color: #fff; padding: 4px 10px;
+            border-radius: 6px; font-family: monospace; font-size: 1.2rem;
+            min-width: 35px; text-align: center;
         }
+
+        .live-card .score { background: #e53e3e; }
 
         .status-badge {
-            justify-self: end;
-            font-size: 0.75rem;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: bold;
-            text-transform: uppercase;
+            justify-self: end; font-size: 0.75rem; padding: 4px 10px;
+            border-radius: 20px; font-weight: bold; text-transform: uppercase;
         }
-        .status-done { background-color: #c6f6d5; color: #22543d; }
-        .status-live { background-color: #feebc8; color: #c05621; animation: pulse 1.5s infinite; }
-        .status-future { background-color: #e2e8f0; color: #4a5568; }
+        .status-FT { background-color: #c6f6d5; color: #22543d; } /* FT = Finished */
+        .status-LIVE { background-color: #fed7d7; color: #9b2c2c; animation: pulse 1.5s infinite; }
+        .status-NS { background-color: #e2e8f0; color: #4a5568; } /* NS = Not Started */
 
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
         @media (max-width: 650px) {
             .match-card { grid-template-columns: 1fr; gap: 12px; text-align: center; }
             .team.home, .team.away { justify-content: center; }
@@ -153,125 +116,107 @@
 
 <div class="container">
     <header>
-        <h1>Fixture Completo - Mundial 2026</h1>
-        <div class="subtitle">Calendario, Horarios y Resultados en Vivo</div>
+        <h1>Fixture Real - Mundial 2026</h1>
+        <div class="subtitle">Resultados oficiales y en vivo desde API-Football</div>
     </header>
 
     <main id="fixture-grupos">
-        <p style="text-align:center; color:#666;">Cargando programación oficial del torneo...</p>
+        <p style="text-align:center; color:#666;">Conectando al servidor intermedio para traer los datos reales de la FIFA...</p>
     </main>
 </div>
 
 <script>
-    const flagCodes = {
-        "México": "mx", "Sudáfrica": "za", "Corea del Sur": "kr", "Chequia": "cz",
-        "Canadá": "ca", "Bosnia": "ba", "Omán": "om", "Túnez": "tn",
-        "Estados Unidos": "us", "Paraguay": "py", "Austria": "at", "Costa de Marfil": "ci",
-        "Argentina": "ar", "Australia": "au", "Suecia": "se", "Zambia": "zm",
-        "España": "es", "Camerún": "cm", "Escocia": "gb-sct", "Japón": "jp",
-        "Francia": "fr", "Egipto": "eg", "Ecuador": "ec", "Uzbekistán": "uz",
-        "Alemania": "de", "Marruecos": "ma", "Jamaica": "jm", "Irak": "iq",
-        "Bélgica": "be", "Chile": "cl", "Mali": "ml", "Catar": "qa",
-        "Portugal": "pt", "Colombia": "co", "Panamá": "pa", "Nigeria": "ng",
-        "Países Bajos": "nl", "Perú": "pe", "Ghana": "gh", "Irán": "ir",
-        "Italia": "it", "Uruguay": "uy", "Costa Rica": "cr", "Argelia": "dz",
-        "Inglaterra": "gb-eng", "Dinamarca": "dk", "Senegal": "sn", "Honduras": "hn"
-    };
+    // URL local para pruebas. Al subir tu backend a internet (Render/Railway), cambias esto por tu URL pública.
+    const BACKEND_URL = 'http://localhost:3000/api/fixture';
 
-    const worldCupGroups = {
-        "Grupo A": ["México", "Sudáfrica", "Corea del Sur", "Chequia"],
-        "Grupo B": ["Canadá", "Bosnia", "Omán", "Túnez"],
-        "Grupo C": ["España", "Camerún", "Escocia", "Japón"],
-        "Grupo D": ["Estados Unidos", "Paraguay", "Austria", "Costa de Marfil"],
-        "Grupo E": ["Argentina", "Australia", "Suecia", "Zambia"],
-        "Grupo F": ["Francia", "Egipto", "Ecuador", "Uzbekistán"],
-        "Grupo G": ["Alemania", "Marruecos", "Jamaica", "Irak"],
-        "Grupo H": ["Bélgica", "Chile", "Mali", "Catar"],
-        "Grupo I": ["Portugal", "Colombia", "Panamá", "Nigeria"],
-        "Grupo J": ["Países Bajos", "Perú", "Ghana", "Irán"],
-        "Grupo K": ["Italia", "Uruguay", "Costa Rica", "Argelia"],
-        "Grupo L": ["Inglaterra", "Dinamarca", "Senegal", "Honduras"]
-    };
-
-    function getFlag(country) {
-        const code = flagCodes[country] || "un";
-        return `<img src="https://flagcdn.com/w40/${code}.png" class="flag" alt="${country}">`;
-    }
-
-    async function fetchScoresAndRender() {
-        let liveScores = {};
-        
+    async function loadRealData() {
         try {
-            const response = await fetch(`./resultados.json?t=${new Date().getTime()}`);
-            if (response.ok) {
-                liveScores = await response.json();
+            const response = await fetch(BACKEND_URL);
+            const fixtures = await response.json();
+
+            if (!fixtures || fixtures.length === 0) {
+                document.getElementById('fixture-grupos').innerHTML = '<p style="text-align:center;">No se encontraron partidos programados.</p>';
+                return;
             }
-        } catch (error) {
-            console.log("Cargando estructura base del fixture...");
-        }
 
-        const container = document.getElementById('fixture-grupos');
-        container.innerHTML = '';
-
-        for (const [groupName, teams] of Object.entries(worldCupGroups)) {
-            const groupSection = document.createElement('div');
-            groupSection.className = 'group-section';
-            groupSection.innerHTML = `<h2 class="group-title">${groupName}</h2>`;
-
-            const groupMatches = [
-                [teams[0], teams[1], "Fecha 1"],
-                [teams[2], teams[3], "Fecha 1"],
-                [teams[0], teams[2], "Fecha 2"],
-                [teams[1], teams[3], "Fecha 2"],
-                [teams[3], teams[0], "Fecha 3"],
-                [teams[1], teams[2], "Fecha 3"]
-            ];
-
-            groupMatches.forEach(([home, away, round]) => {
-                const matchKey = `${home}-${away}`;
-                // Si el JSON no tiene los datos del partido, usa estos valores por defecto
-                const result = liveScores[matchKey] || { 
-                    home: null, away: null, status: "future", 
-                    date: "Por definir", time: "--:--", venue: "Estadio por confirmar" 
-                };
-                
-                let scoreDisplay = "  -  ";
-                let badgeText = "Por jugar";
-                let badgeClass = "status-future";
-
-                if (result.status === 'done') {
-                    scoreDisplay = `${result.home} - ${result.away}`;
-                    badgeText = "Finalizado";
-                    badgeClass = "status-done";
-                } else if (result.status === 'live') {
-                    scoreDisplay = `${result.home} - ${result.away}`;
-                    badgeText = "En Vivo ⏱️";
-                    badgeClass = "status-live";
-                }
-
-                const matchCard = document.createElement('div');
-                matchCard.className = 'match-card';
-                matchCard.innerHTML = `
-                    <div class="match-info">
-                        <span class="datetime-tag">📅 ${result.date} - 🕒 ${result.time} hs</span>
-                        <div style="font-size:0.75rem; color:#718096;">📍 ${result.venue}</div>
-                    </div>
-                    <div class="teams-container">
-                        <span class="team home">${home} ${getFlag(home)}</span>
-                        <span class="score">${scoreDisplay}</span>
-                        <span class="team away">${getFlag(away)} ${away}</span>
-                    </div>
-                    <span class="status-badge ${badgeClass}">${badgeText}</span>
-                `;
-                groupSection.appendChild(matchCard);
+            // Agrupar los partidos por rondas (Grupos) devueltos por la API
+            const groups = {};
+            fixtures.forEach(item => {
+                // Filtramos solo fase de grupos comercial de la API (ej: "Group Stage" o "Group A")
+                const stage = item.league.round;
+                if (!groups[stage]) groups[stage] = [];
+                groups[stage].push(item);
             });
 
-            container.appendChild(groupSection);
+            const container = document.getElementById('fixture-grupos');
+            container.innerHTML = '';
+
+            // Renderizar cada grupo dinámicamente con datos reales
+            for (const [groupName, matches] of Object.entries(groups)) {
+                const groupSection = document.createElement('div');
+                groupSection.className = 'group-section';
+                groupSection.innerHTML = `<h2 class="group-title">${groupName}</h2>`;
+
+                matches.forEach(match => {
+                    const homeTeam = match.teams.home;
+                    const awayTeam = match.teams.away;
+                    const goals = match.goals;
+                    const statusShort = match.fixture.status.short; // NS, 1H, 2H, HT, FT
+                    
+                    // Tratamiento de estados en vivo según la API
+                    const isLive = ['1H', 'HT', '2H', 'ET', 'P'].includes(statusShort);
+                    const isFinished = statusShort === 'FT';
+                    
+                    let scoreDisplay = "  -  ";
+                    let badgeText = "Por Jugar";
+                    let badgeClass = "status-NS";
+                    let cardClass = "";
+
+                    if (isFinished) {
+                        scoreDisplay = `${goals.home} - ${goals.away}`;
+                        badgeText = "Finalizado";
+                        badgeClass = "status-FT";
+                    } else if (isLive) {
+                        scoreDisplay = `${goals.home} - ${goals.away}`;
+                        badgeText = `En Vivo ${match.fixture.status.elapsed}' ⏱️`;
+                        badgeClass = "status-LIVE";
+                        cardClass = "live-card";
+                    }
+
+                    // Convertir fecha UTC de la API a la hora local del usuario
+                    const matchDate = new Date(match.fixture.date);
+                    const fechaLegible = matchDate.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+                    const horaLegible = matchDate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+
+                    const matchCard = document.createElement('div');
+                    matchCard.className = `match-card ${cardClass}`;
+                    matchCard.innerHTML = `
+                        <div class="match-info">
+                            <span class="datetime-tag">📅 ${fechaLegible} - 🕒 ${horaLegible} hs</span>
+                            <div style="font-size:0.75rem; color:#718096;">🏟️ ${match.fixture.venue.name || 'Estadio Oficial'}</div>
+                        </div>
+                        <div class="teams-container">
+                            <span class="team home">${homeTeam.name} <img src="${homeTeam.logo}" class="flag" alt=""></span>
+                            <span class="score">${scoreDisplay}</span>
+                            <span class="team away"><img src="${awayTeam.logo}" class="flag" alt=""> ${awayTeam.name}</span>
+                        </div>
+                        <span class="status-badge ${badgeClass}">${badgeText}</span>
+                    `;
+                    groupSection.appendChild(matchCard);
+                });
+
+                container.appendChild(groupSection);
+            }
+
+        } catch (error) {
+            console.error(error);
+            document.getElementById('fixture-grupos').innerHTML = '<p style="text-align:center; color:red;">Error de conexión con el servidor de datos.</p>';
         }
     }
 
-    fetchScoresAndRender();
-    setInterval(fetchScoresAndRender, 60000);
+    loadRealData();
+    // Auto-actualización cada 2 minutos
+    setInterval(loadRealData, 120000);
 </script>
 </body>
 </html>
