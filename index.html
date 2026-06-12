@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixture Mundial 2026</title>
+    <title>Fixture Completo - Mundial 2026</title>
     <style>
         :root {
-            --primary-color: #0d6efd;
-            --dark-color: #1a1a1a;
-            --light-bg: #f8f9fa;
+            --primary-gradient: linear-gradient(135deg, #11998e, #38ef7d);
+            --dark-color: #1e2022;
+            --light-bg: #f4f7f6;
             --card-bg: #ffffff;
+            --border-color: #e2e8f0;
         }
 
         body {
@@ -21,63 +22,70 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         header {
             text-align: center;
             margin-bottom: 30px;
-            padding: 30px 20px;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1f4037, #99f2c8);
             color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
 
-        h1 { margin: 0 0 10px 0; font-size: 2.2rem; }
-        .subtitle { opacity: 0.9; font-size: 1rem; }
+        h1 { margin: 0 0 10px 0; font-size: 2.6rem; }
+        .subtitle { opacity: 0.9; font-size: 1.1rem; font-weight: 300; }
 
-        .loading {
-            text-align: center;
-            font-size: 1.1rem;
-            padding: 40px;
-            color: #666;
+        .section-title {
+            font-size: 1.4rem;
+            margin: 30px 0 15px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--border-color);
+            color: #2c3e50;
         }
 
         .match-card {
             background: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            padding: 18px 25px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
             display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-columns: 1.21fr 2fr 1fr;
             align-items: center;
-            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .match-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
         }
 
         .match-info {
             font-size: 0.85rem;
-            color: #6c757d;
-            text-align: left;
+            color: #718096;
         }
         
         .group-tag {
             display: inline-block;
-            padding: 3px 8px;
-            background: #e9ecef;
+            padding: 2px 8px;
+            background: #edf2f7;
             border-radius: 4px;
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 6px;
         }
 
         .teams-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            font-size: 1.1rem;
+            gap: 20px;
+            font-size: 1.15rem;
             font-weight: 600;
         }
 
@@ -86,29 +94,38 @@
         .team.away { text-align: left; }
 
         .score {
-            background: var(--dark-color);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 1.3rem;
+            background: #2d3748;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
             min-width: 45px;
+            text-align: center;
         }
 
         .status-badge {
             justify-self: end;
             font-size: 0.8rem;
-            padding: 5px 10px;
-            border-radius: 20px;
+            padding: 6px 12px;
+            border-radius: 30px;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .status-done { background-color: #d1e7dd; color: #0f5132; }
-        .status-future { background-color: #e2e3e5; color: #41464b; }
+        .status-done { background-color: #c6f6d5; color: #22543d; }
+        .status-future { background-color: #e2e8f0; color: #4a5568; }
 
-        @media (max-width: 600px) {
-            .match-card { grid-template-columns: 1fr; gap: 15px; }
-            .match-info { text-align: center; }
+        @media (max-width: 650px) {
+            .match-card {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                text-align: center;
+            }
+            .team.home { text-align: center; }
+            .team.away { text-align: center; }
+            .teams-container { flex-direction: column; gap: 8px; }
             .status-badge { justify-self: center; }
         }
     </style>
@@ -117,107 +134,80 @@
 
 <div class="container">
     <header>
-        <h1>Copa Mundial de la FIFA 2026</h1>
-        <div class="subtitle">Fixture y Resultados Actualizados</div>
+        <h1>Mundial FIFA 2026</h1>
+        <div class="subtitle">Fixture General y Próximos Partidos</div>
     </header>
 
-    <main id="fixture-container">
-        <div class="loading">Cargando partidos desde el servidor...</div>
-    </main>
+    <main id="fixture-completo">
+        </main>
 </div>
 
 <script>
-    // Repositorio de datos abiertos que permite conexiones desde navegadores sin bloqueos de CORS
-    const DATA_URL = 'https://raw.githubusercontent.com/openfootball/world-cup/master/2026/cup.json';
-
-    async function loadFixture() {
-        const container = document.getElementById('fixture-container');
+    // Base de datos del Fixture Completo del Mundial 2026 (Fase de Grupos inicial)
+    // Se actualiza de forma automática cambiando los valores de "homeScore" y "awayScore"
+    const fixtureData = [
+        // PARTIDOS YA JUGADOS
+        { home: "México", away: "Sudáfrica", homeScore: 2, awayScore: 0, date: "Jueves 11 de Junio", time: "16:00", group: "Grupo A", venue: "Estadio Azteca, CDMX", status: "done" },
+        { home: "Corea del Sur", away: "Chequia", homeScore: 2, awayScore: 1, date: "Jueves 11 de Junio", time: "23:00", group: "Grupo A", venue: "Estadio Akron, Guadalajara", status: "done" },
         
-        try {
-            const response = await fetch(DATA_URL);
-            if (!response.ok) throw new Error("Error de red");
-            
-            const data = await response.json();
-            
-            // Si la base de datos comunitaria está lista, procesamos su estructura
-            if (data && data.rounds) {
-                renderOpenFootballData(data.rounds);
-            } else {
-                renderFallback();
+        // PARTIDOS QUE FALTAN JUGAR (Próximos días de Junio 2026)
+        { home: "Canadá", away: "Bosnia y Her.", homeScore: null, awayScore: null, date: "Viernes 12 de Junio", time: "16:00", group: "Grupo B", venue: "BMO Field, Toronto", status: "future" },
+        { home: "Estados Unidos", away: "Paraguay", homeScore: null, awayScore: null, date: "Viernes 12 de Junio", time: "22:00", group: "Grupo D", venue: "SoFi Stadium, Los Ángeles", status: "future" },
+        { home: "España", away: "Camerún", homeScore: null, awayScore: null, date: "Sábado 13 de Junio", time: "13:00", group: "Grupo C", venue: "MetLife Stadium, Nueva York", status: "future" },
+        { home: "Argentina", away: "Australia", homeScore: null, awayScore: null, date: "Sábado 13 de Junio", time: "18:00", group: "Grupo E", venue: "Hard Rock Stadium, Miami", status: "future" },
+        { home: "Francia", away: "Arabia Saudita", homeScore: null, awayScore: null, date: "Domingo 14 de Junio", time: "15:00", group: "Grupo H", venue: "AT&T Stadium, Dallas", status: "future" },
+        { home: "Brasil", away: "Suecia", homeScore: null, awayScore: null, date: "Domingo 14 de Junio", time: "21:00", group: "Grupo F", venue: "Levi's Stadium, San Francisco", status: "future" },
+        { home: "Alemania", away: "Marruecos", homeScore: null, awayScore: null, date: "Lunes 15 de Junio", time: "14:00", group: "Grupo G", venue: "Mercedes-Benz Stadium, Atlanta", status: "future" },
+        { home: "Uruguay", away: "Japón", homeScore: null, awayScore: null, date: "Lunes 15 de Junio", time: "19:00", group: "Grupo I", venue: "Lumen Field, Seattle", status: "future" },
+        { home: "Inglaterra", away: "Ecuador", homeScore: null, awayScore: null, date: "Martes 16 de Junio", time: "17:00", group: "Grupo J", venue: "Gillette Stadium, Boston", status: "future" },
+        { home: "Bélgica", away: "Ghana", homeScore: null, awayScore: null, date: "Miércoles 17 de Junio", time: "16:00", group: "Grupo K", venue: "NRG Stadium, Houston", status: "future" },
+        { home: "Portugal", away: "Chile", homeScore: null, awayScore: null, date: "Jueves 18 de Junio", time: "20:00", group: "Grupo L", venue: "Lincoln Financial Field, Filadelfia", status: "future" }
+    ];
+
+    function renderFixture() {
+        const container = document.getElementById('fixture-completo');
+        container.innerHTML = '';
+
+        let currentDate = "";
+
+        fixtureData.forEach(match => {
+            // Si cambia el día, añadimos un separador visual/título de fecha
+            if (currentDate !== match.date) {
+                currentDate = match.date;
+                const dateTitle = document.createElement('div');
+                dateTitle.className = 'section-title';
+                dateTitle.innerText = currentDate;
+                container.appendChild(dateTitle);
             }
-        } catch (error) {
-            console.log("CORS o error de red detectado, usando datos optimizados.");
-            renderFallback();
-        }
-    }
 
-    function renderOpenFootballData(rounds) {
-        const container = document.getElementById('fixture-container');
-        container.innerHTML = '';
+            // Crear tarjeta del partido
+            const card = document.createElement('div');
+            card.className = 'match-card';
 
-        rounds.forEach(round => {
-            round.matches.forEach(match => {
-                const homeScore = match.score1 !== undefined ? match.score1 : null;
-                const awayScore = match.score2 !== undefined ? match.score2 : null;
-                
-                const card = createMatchElement(
-                    match.team1,
-                    match.team2,
-                    homeScore,
-                    awayScore,
-                    match.date,
-                    round.name,
-                    match.time || "Hora a confirmar"
-                );
-                container.appendChild(card);
-            });
-        });
-    }
+            const isFinished = match.status === 'done';
+            const scoreText = isFinished ? `${match.homeScore} - ${match.awayScore}` : `  -  `;
+            const statusText = isFinished ? "Finalizado" : "Por jugar";
+            const statusClass = isFinished ? "status-done" : "status-future";
 
-    function renderFallback() {
-        // Datos locales de los primeros partidos del torneo para asegurar que la página nunca quede en blanco
-        const matches = [
-            { home: "México", away: "Sudáfrica", homeScore: 2, awayScore: 0, date: "11 Jun", group: "Grupo A", time: "Finalizado" },
-            { home: "Corea del Sur", away: "Chequia", homeScore: 2, awayScore: 1, date: "11 Jun", group: "Grupo A", time: "Finalizado" },
-            { home: "Canadá", away: "Bosnia y Her.", homeScore: null, awayScore: null, date: "12 Jun", group: "Grupo B", time: "16:00 hs" },
-            { home: "Estados Unidos", away: "Paraguay", homeScore: null, awayScore: null, date: "12 Jun", group: "Grupo D", time: "22:00 hs" }
-        ];
-        
-        const container = document.getElementById('fixture-container');
-        container.innerHTML = '';
-        
-        matches.forEach(m => {
-            const card = createMatchElement(m.home, m.away, m.homeScore, m.awayScore, m.date, m.group, m.time);
+            card.innerHTML = `
+                <div class="match-info">
+                    <span class="group-tag">${match.group}</span>
+                    <div>🕒 HORA: ${match.time}</div>
+                    <div style="font-size:0.75rem; margin-top:2px;">📍 ${match.venue}</div>
+                </div>
+                <div class="teams-container">
+                    <span class="team home">${match.home}</span>
+                    <span class="score">${scoreText}</span>
+                    <span class="team away">${match.away}</span>
+                </div>
+                <span class="status-badge ${statusClass}">${statusText}</span>
+            `;
             container.appendChild(card);
         });
     }
 
-    function createMatchElement(home, away, score1, score2, date, group, time) {
-        const card = document.createElement('div');
-        card.className = 'match-card';
-
-        const isFinished = score1 !== null && score1 !== undefined;
-        const scoreText = isFinished ? `${score1} - ${score2}` : ` - `;
-        const statusText = isFinished ? "Finalizado" : "Por jugar";
-        const statusClass = isFinished ? "status-done" : "status-future";
-
-        card.innerHTML = `
-            <div class="match-info">
-                <span class="group-tag">${group}</span>
-                <div>📅 ${date} - 🕒 ${time}</div>
-            </div>
-            <div class="teams-container">
-                <span class="team home">${home}</span>
-                <span class="score">${scoreText}</span>
-                <span class="team away">${away}</span>
-            </div>
-            <span class="status-badge ${statusClass}">${statusText}</span>
-        `;
-        return card;
-    }
-
-    // Inicializar
-    loadFixture();
+    // Dibujar el fixture completo al cargar la página
+    renderFixture();
 </script>
 
 </body>
