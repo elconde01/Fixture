@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixture Mundial 2026 con Banderas</title>
+    <title>Fixture Completo 48 Equipos - Mundial 2026</title>
     <style>
         :root {
             --dark-color: #1e2022;
             --light-bg: #f4f7f6;
             --card-bg: #ffffff;
             --border-color: #e2e8f0;
+            --accent-color: #11998e;
         }
 
         body {
@@ -21,7 +22,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
         }
 
@@ -29,7 +30,7 @@
             text-align: center;
             margin-bottom: 30px;
             padding: 40px 20px;
-            background: linear-gradient(135deg, #1f4037, #2c5364);
+            background: linear-gradient(135deg, #11998e, #38ef7d);
             color: white;
             border-radius: 16px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
@@ -38,105 +39,91 @@
         h1 { margin: 0 0 10px 0; font-size: 2.3rem; }
         .subtitle { opacity: 0.9; font-size: 1.1rem; font-weight: 300; }
 
-        .section-title {
-            font-size: 1.4rem;
-            margin: 35px 0 15px 0;
-            padding-bottom: 5px;
-            border-bottom: 2px solid #38ef7d;
+        .group-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        .group-title {
+            font-size: 1.5rem;
+            margin: 0 0 15px 0;
             color: #2c3e50;
+            border-bottom: 3px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 3px;
         }
 
         .match-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 18px 25px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
+            background: var(--light-bg);
+            border-radius: 8px;
+            padding: 12px 20px;
+            margin-bottom: 10px;
             display: grid;
-            grid-template-columns: 1.20fr 2.1fr 0.9fr;
+            grid-template-columns: 1fr 1.8fr 1fr;
             align-items: center;
-            transition: all 0.2s ease;
-        }
-
-        .match-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
         }
 
         .match-info {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #718096;
-        }
-        
-        .group-tag {
-            display: inline-block;
-            padding: 2px 8px;
-            background: #edf2f7;
-            border-radius: 4px;
-            font-weight: 600;
-            color: #4a5568;
-            margin-bottom: 6px;
         }
 
         .teams-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            font-size: 1.15rem;
+            gap: 12px;
+            font-size: 1.05rem;
             font-weight: 600;
         }
 
         .team { 
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex: 1; 
         }
-        
         .team.home { justify-content: flex-end; text-align: right; }
         .team.away { justify-content: flex-start; text-align: left; }
 
         .flag {
-            width: 28px;
-            height: 20px;
+            width: 24px;
+            height: 16px;
             object-fit: cover;
-            border-radius: 3px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-            border: 1px solid #eaeaea;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .score {
             background: #2d3748;
             color: #fff;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 1.4rem;
-            min-width: 45px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            min-width: 35px;
             text-align: center;
         }
 
         .status-badge {
             justify-self: end;
-            font-size: 0.8rem;
-            padding: 6px 12px;
-            border-radius: 30px;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
             font-weight: bold;
-            text-transform: uppercase;
         }
-
         .status-done { background-color: #c6f6d5; color: #22543d; }
         .status-future { background-color: #e2e8f0; color: #4a5568; }
 
         @media (max-width: 650px) {
-            .match-card {
-                grid-template-columns: 1fr;
-                gap: 15px;
-                text-align: center;
-            }
-            .team.home, .team.away { justify-content: center; text-align: center; }
-            .teams-container { flex-direction: column; gap: 12px; }
+            .match-card { grid-template-columns: 1fr; gap: 10px; text-align: center; }
+            .team.home, .team.away { justify-content: center; }
+            .teams-container { flex-direction: column; gap: 5px; }
             .status-badge { justify-self: center; }
         }
     </style>
@@ -145,96 +132,109 @@
 
 <div class="container">
     <header>
-        <h1>Mundial FIFA 2026 - Calendario de Partidos</h1>
-        <div class="subtitle">Fixture Completo con Banderas</div>
+        <h1>Fixture Completo - Mundial 2026</h1>
+        <div class="subtitle">Los 72 partidos de la Fase de Grupos (48 Selecciones)</div>
     </header>
 
-    <main id="fixture-completo"></main>
+    <main id="fixture-grupos"></main>
 </div>
 
 <script>
-    // Diccionario de códigos de país (ISO 3166-1 alpha-2) para cargar las banderas automáticamente
+    // Códigos ISO de bandera para los 48 equipos clasificados o proyectados
     const flagCodes = {
         "México": "mx", "Sudáfrica": "za", "Corea del Sur": "kr", "Chequia": "cz",
-        "Canadá": "ca", "Bosnia y Her.": "ba", "Estados Unidos": "us", "Paraguay": "py",
-        "España": "es", "Camerún": "cm", "Argentina": "ar", "Australia": "au",
-        "Francia": "fr", "Arabia Saudita": "sa", "Brasil": "br", "Suecia": "se",
-        "Alemania": "de", "Marruecos": "ma", "Uruguay": "uy", "Japón": "jp",
-        "Inglaterra": "gb-eng", "Italia": "it", "Ghana": "gh", "Portugal": "pt",
-        "Chile": "cl", "Países Bajos": "nl", "Argelia": "dz", "Bélgica": "be",
-        "Nueva Zelanda": "nz", "Colombia": "co", "Irlanda": "ie", "Ecuador": "ec"
+        "Canadá": "ca", "Bosnia": "ba", "Omán": "om", "Túnez": "tn",
+        "Estados Unidos": "us", "Paraguay": "py", "Austria": "at", "Costa de Marfil": "ci",
+        "Argentina": "ar", "Australia": "au", "Suecia": "se", "Zambia": "zm",
+        "España": "es", "Camerún": "cm", "Escocia": "gb-sct", "Japón": "jp",
+        "Francia": "fr", "Egipto": "eg", "Ecuador", "ec", "Uzbekistán": "uz",
+        "Alemania": "de", "Marruecos": "ma", "Jamaica": "jm", "Irak": "iq",
+        "Bélgica": "be", "Chile": "cl", "Mali": "ml", "Catar": "qa",
+        "Portugal": "pt", "Colombia": "co", "Panamá": "pa", "Nigeria": "ng",
+        "Países Bajos": "nl", "Perú": "pe", "Ghana": "gh", "Irán": "ir",
+        "Italia": "it", "Uruguay": "uy", "Costa Rica": "cr", "Argelia": "dz",
+        "Inglaterra": "gb-eng", "Dinamarca": "dk", "Senegal": "sn", "Honduras": "hn"
     };
 
-    const fixtureData = [
-        { home: "México", away: "Sudáfrica", homeScore: 2, awayScore: 0, date: "Jueves 11 de Junio", time: "16:00", group: "Grupo A", venue: "Estadio Azteca", status: "done" },
-        { home: "Corea del Sur", away: "Chequia", homeScore: 2, awayScore: 1, date: "Jueves 11 de Junio", time: "23:00", group: "Grupo A", venue: "Estadio Akron", status: "done" },
-        { home: "Canadá", away: "Bosnia y Her.", homeScore: null, awayScore: null, date: "Viernes 12 de Junio", time: "16:00", group: "Grupo B", venue: "BMO Field", status: "future" },
-        { home: "Estados Unidos", away: "Paraguay", homeScore: null, awayScore: null, date: "Viernes 12 de Junio", time: "22:00", group: "Grupo D", venue: "SoFi Stadium", status: "future" },
-        { home: "España", away: "Camerún", homeScore: null, awayScore: null, date: "Sábado 13 de Junio", time: "13:00", group: "Grupo C", venue: "MetLife Stadium", status: "future" },
-        { home: "Argentina", away: "Australia", homeScore: null, awayScore: null, date: "Sábado 13 de Junio", time: "18:00", group: "Grupo E", venue: "Hard Rock Stadium", status: "future" },
-        { home: "Francia", away: "Arabia Saudita", homeScore: null, awayScore: null, date: "Domingo 14 de Junio", time: "15:00", group: "Grupo H", venue: "AT&T Stadium", status: "future" },
-        { home: "Brasil", away: "Suecia", homeScore: null, awayScore: null, date: "Domingo 14 de Junio", time: "21:00", group: "Grupo F", venue: "Levi's Stadium", status: "future" },
-        { home: "Alemania", away: "Marruecos", homeScore: null, awayScore: null, date: "Lunes 15 de Junio", time: "14:00", group: "Grupo G", venue: "Mercedes-Benz Stadium", status: "future" },
-        { home: "Uruguay", away: "Japón", homeScore: null, awayScore: null, date: "Lunes 15 de Junio", time: "19:00", group: "Grupo I", venue: "Lumen Field", status: "future" },
-        { home: "Inglaterra", away: "Ecuador", homeScore: null, awayScore: null, date: "Martes 16 de Junio", time: "17:00", group: "Grupo J", venue: "Gillette Stadium", status: "future" },
-        { home: "Italia", away: "Ghana", homeScore: null, awayScore: null, date: "Martes 16 de Junio", time: "21:00", group: "Grupo K", venue: "NRG Stadium", status: "future" },
-        { home: "Portugal", away: "Chile", homeScore: null, awayScore: null, date: "Miércoles 17 de Junio", time: "15:00", group: "Grupo L", venue: "Lincoln Financial Field", status: "future" },
-        { home: "Países Bajos", away: "Argelia", homeScore: null, awayScore: null, date: "Miércoles 17 de Junio", time: "20:00", group: "Grupo C", venue: "Arrowhead Stadium", status: "future" },
-        { home: "Bélgica", away: "Nueva Zelanda", homeScore: null, awayScore: null, date: "Jueves 18 de Junio", time: "16:00", group: "Grupo F", venue: "Hard Rock Stadium", status: "future" },
-        { home: "Colombia", away: "Irlanda", homeScore: null, awayScore: null, date: "Jueves 18 de Junio", time: "21:00", group: "Grupo E", venue: "Levi's Stadium", status: "future" }
-    ];
+    // Configuración de los 12 Grupos Oficiales (4 equipos por grupo)
+    const worldCupGroups = {
+        "Grupo A": ["México", "Sudáfrica", "Corea del Sur", "Chequia"],
+        "Grupo B": ["Canadá", "Bosnia", "Omán", "Túnez"],
+        "Grupo C": ["España", "Camerún", "Escocia", "Japón"],
+        "Grupo D": ["Estados Unidos", "Paraguay", "Austria", "Costa de Marfil"],
+        "Grupo E": ["Argentina", "Australia", "Suecia", "Zambia"],
+        "Grupo F": ["Francia", "Egipto", "Ecuador", "Uzbekistán"],
+        "Grupo G": ["Alemania", "Marruecos", "Jamaica", "Irak"],
+        "Grupo H": ["Bélgica", "Chile", "Mali", "Catar"],
+        "Grupo I": ["Portugal", "Colombia", "Panamá", "Nigeria"],
+        "Grupo J": ["Países Bajos", "Perú", "Ghana", "Irán"],
+        "Grupo K": ["Italia", "Uruguay", "Costa Rica", "Argelia"],
+        "Grupo L": ["Inglaterra", "Dinamarca", "Senegal", "Honduras"]
+    };
 
-    function getFlagImg(countryName) {
-        const code = flagCodes[countryName];
-        if (!code) return ''; // Retorna vacío si no encuentra código
-        // CDN gratuito y rápido de banderas de alta calidad
-        return `<img src="https://flagcdn.com/w40/${code}.png" class="flag" alt="Bandera de ${countryName}">`;
+    // Marcadores en tiempo real cargados localmente (Se editan aquí a medida que se jueguen)
+    const liveScores = {
+        "México-Sudáfrica": { home: 2, away: 0, status: "done" },
+        "Corea del Sur-Chequia": { home: 2, away: 1, status: "done" }
+    };
+
+    function getFlag(country) {
+        const code = flagCodes[country] || "un";
+        return `<img src="https://flagcdn.com/w40/${code}.png" class="flag" alt="${country}">`;
     }
 
-    function renderFixture() {
-        const container = document.getElementById('fixture-completo');
+    function generateAndRenderFixture() {
+        const container = document.getElementById('fixture-grupos');
         container.innerHTML = '';
-        let currentDate = "";
 
-        fixtureData.forEach(match => {
-            if (currentDate !== match.date) {
-                currentDate = match.date;
-                const dateTitle = document.createElement('div');
-                dateTitle.className = 'section-title';
-                dateTitle.innerText = currentDate;
-                container.appendChild(dateTitle);
-            }
+        // Recorrer cada grupo
+        for (const [groupName, teams] of Object.entries(worldCupGroups)) {
+            const groupSection = document.createElement('div');
+            groupSection.className = 'group-section';
+            groupSection.innerHTML = `<h2 class="group-title">${groupName}</h2>`;
 
-            const card = document.createElement('div');
-            card.className = 'match-card';
+            // Fórmulas matemáticas de combinatoria para generar los 6 partidos únicos de cada grupo
+            const groupMatches = [
+                [teams[0], teams[1], "Fecha 1"],
+                [teams[2], teams[3], "Fecha 1"],
+                [teams[0], teams[2], "Fecha 2"],
+                [teams[1], teams[3], "Fecha 2"],
+                [teams[3], teams[0], "Fecha 3"],
+                [teams[1], teams[2], "Fecha 3"]
+            ];
 
-            const isFinished = match.status === 'done';
-            const scoreText = isFinished ? `${match.homeScore} - ${match.awayScore}` : `  -  `;
-            const statusText = isFinished ? "Finalizado" : "Por jugar";
-            const statusClass = isFinished ? "status-done" : "status-future";
+            groupMatches.forEach(([home, away, round]) => {
+                const matchKey = `${home}-${away}`;
+                const result = liveScores[matchKey] || { home: null, away: null, status: "future" };
+                
+                const isFinished = result.status === 'done';
+                const scoreDisplay = isFinished ? `${result.home} - ${result.away}` : "  -  ";
+                const badgeText = isFinished ? "Finalizado" : "Por jugar";
+                const badgeClass = isFinished ? "status-done" : "status-future";
 
-            // Obtener elementos HTML de las banderas correspondientes
-            const homeFlag = getFlagImg(match.home);
-            const awayFlag = getFlagImg(match.away);
+                const matchCard = document.createElement('div');
+                matchCard.className = 'match-card';
+                matchCard.innerHTML = `
+                    <div class="match-info">
+                        <span style="font-weight:bold; color:var(--accent-color);">${round}</span>
+                        <div>🏟️ Sede neutral</div>
+                    </div>
+                    <div class="teams-container">
+                        <span class="team home">${home} ${getFlag(home)}</span>
+                        <span class="score">${scoreDisplay}</span>
+                        <span class="team away">${getFlag(away)} ${away}</span>
+                    </div>
+                    <span class="status-badge ${badgeClass}">${badgeText}</span>
+                `;
+                groupSection.appendChild(matchCard);
+            });
 
-            card.innerHTML = `
-                <div class="match-info">
-                    <span class="group-tag">${match.group}</span>
-                    <div>🕒 ${match.time} hs</div>
-                    <div style="font-size:0.75rem; margin-top:2px; color:#a0aec0;">📍 ${match.venue}</div>
-                </div>
-                <div class="teams-container">
-                    <span class="team home">${match.home} ${homeFlag}</span>
-                    <span class="score">${scoreText}</span>
-                    <span class="team away">${awayFlag} ${match.away}</span>
-                </div>
-                <span class="status-badge ${statusClass}">${statusText}</span>
-            `;
-            container.appendChild(card);
-        });
+            container.appendChild(groupSection);
+        }
     }
 
-    renderFixture();
+    // Inicializar renderizado
+    generateAndRenderFixture();
 </script>
 </body>
 </html>
