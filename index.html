@@ -30,7 +30,7 @@
             text-align: center;
             margin-bottom: 30px;
             padding: 40px 20px;
-            background: linear-gradient(135deg, #11998e, #38ef7d);
+            background: linear-gradient(135deg, #11998e, #2c5364);
             color: white;
             border-radius: 16px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
@@ -140,14 +140,14 @@
 </div>
 
 <script>
-    // Códigos ISO de bandera para los 48 equipos clasificados o proyectados
+    // Códigos ISO corregidos para las banderas
     const flagCodes = {
         "México": "mx", "Sudáfrica": "za", "Corea del Sur": "kr", "Chequia": "cz",
         "Canadá": "ca", "Bosnia": "ba", "Omán": "om", "Túnez": "tn",
         "Estados Unidos": "us", "Paraguay": "py", "Austria": "at", "Costa de Marfil": "ci",
         "Argentina": "ar", "Australia": "au", "Suecia": "se", "Zambia": "zm",
         "España": "es", "Camerún": "cm", "Escocia": "gb-sct", "Japón": "jp",
-        "Francia": "fr", "Egipto": "eg", "Ecuador", "ec", "Uzbekistán": "uz",
+        "Francia": "fr", "Egipto": "eg", "Ecuador": "ec", "Uzbekistán": "uz",
         "Alemania": "de", "Marruecos": "ma", "Jamaica": "jm", "Irak": "iq",
         "Bélgica": "be", "Chile": "cl", "Mali": "ml", "Catar": "qa",
         "Portugal": "pt", "Colombia": "co", "Panamá": "pa", "Nigeria": "ng",
@@ -156,7 +156,7 @@
         "Inglaterra": "gb-eng", "Dinamarca": "dk", "Senegal": "sn", "Honduras": "hn"
     };
 
-    // Configuración de los 12 Grupos Oficiales (4 equipos por grupo)
+    // Estructura de los 12 grupos
     const worldCupGroups = {
         "Grupo A": ["México", "Sudáfrica", "Corea del Sur", "Chequia"],
         "Grupo B": ["Canadá", "Bosnia", "Omán", "Túnez"],
@@ -172,7 +172,7 @@
         "Grupo L": ["Inglaterra", "Dinamarca", "Senegal", "Honduras"]
     };
 
-    // Marcadores en tiempo real cargados localmente (Se editan aquí a medida que se jueguen)
+    // Resultados reales actuales
     const liveScores = {
         "México-Sudáfrica": { home: 2, away: 0, status: "done" },
         "Corea del Sur-Chequia": { home: 2, away: 1, status: "done" }
@@ -187,13 +187,12 @@
         const container = document.getElementById('fixture-grupos');
         container.innerHTML = '';
 
-        // Recorrer cada grupo
         for (const [groupName, teams] of Object.entries(worldCupGroups)) {
             const groupSection = document.createElement('div');
             groupSection.className = 'group-section';
             groupSection.innerHTML = `<h2 class="group-title">${groupName}</h2>`;
 
-            // Fórmulas matemáticas de combinatoria para generar los 6 partidos únicos de cada grupo
+            // Combinatoria matemática exacta para los 6 partidos de cada grupo (Total 72)
             const groupMatches = [
                 [teams[0], teams[1], "Fecha 1"],
                 [teams[2], teams[3], "Fecha 1"],
@@ -217,7 +216,7 @@
                 matchCard.innerHTML = `
                     <div class="match-info">
                         <span style="font-weight:bold; color:var(--accent-color);">${round}</span>
-                        <div>🏟️ Sede neutral</div>
+                        <div>🏟️ Sede del Grupo</div>
                     </div>
                     <div class="teams-container">
                         <span class="team home">${home} ${getFlag(home)}</span>
@@ -233,7 +232,6 @@
         }
     }
 
-    // Inicializar renderizado
     generateAndRenderFixture();
 </script>
 </body>
