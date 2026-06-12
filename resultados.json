@@ -1,0 +1,5 @@
+{
+  "México-Sudáfrica": { "home": 2, "away": 0, "status": "done", "date": "11 Jun", "time": "16:00", "venue": "Estadio Azteca" },
+  "Corea del Sur-Chequia": { "home": 2, "away": 1, "status": "done", "date": "11 Jun", "time": "23:00", "venue": "Estadio Akron" },
+  "Canadá-Bosnia": { "home": null, "away": null, "status": "future", "date": "12 Jun", "time": "16:00", "venue": "BMO Field" }
+}
